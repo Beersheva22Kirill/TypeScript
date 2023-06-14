@@ -1,3 +1,6 @@
+import Rectangle from "./Rectangle";
+import Shape from "./Shape";
+
 let n = 10;
 
 n = 20;
@@ -29,4 +32,75 @@ function func (a:number) : number {
 }
 
 console.log(func(2));
+
+let comparator:( num: number, num1: number) => number;
+
+comparator = function(num1: number, num2:number):number{
+    
+    return num1 - num2;
+}
+
+
+type Comparator<T = number> = (p1: T, p2: T) => number; // <T = number> значение по умолчанию
+
+let comparator_param: Comparator =                          //можно не указывать тип, но можно поменять указав "let comparator_param: Comparator<string>" например
+        function (num1: number, num2:number): number{
+    
+    return num1 > num2 ? 1 : -1;
+    
+}
+
+type Person = {id: number, date: Date|string, name: string, gender?: 'male'|'female'} //? необязательный параметр
+
+function displayPerson(person:Person):void {
+    console.log("\ndisplay person:");
+    
+    console.log(person.id);
+    console.log(person.name);
+    console.log(person.date);
+    person.gender && console.log(person.gender);
+  
+}
+
+const pers:Person = {id: 123456,date:"04-04-1989",name: "Kirill",gender: "male"} 
+displayPerson(pers);
+
+function ciper(text:string, key: number): string {
+    let res = ""
+ Array.from(text).forEach(e => {
+
+    let index:number = e.charCodeAt(0) + key;
+    if (index > "~".charCodeAt(0)) {
+        index = index - ("~".charCodeAt(0) - " ".charCodeAt(0)) - 1;
+    }
+    console.log(index);
+    res += String.fromCharCode(index)
+ })
+    return res;
+}
+
+function deciper(text:string, key: number): string {
+    let res = ""
+    Array.from(text).forEach(e => {
+        let index = e.charCodeAt(0) - key;
+        if (index < " ".charCodeAt(0)) {
+        index += ("~".charCodeAt(0) - " ".charCodeAt(0)) + 1;    
+    }
+    res += String.fromCharCode(index)
+    })
+    return res;
+}
+console.log("\n====Cifer=======");
+console.log(ciper("{|}",3));
+console.log("\n===Decifer========");
+console.log(deciper(ciper("{|}",3),3));
+
+console.log("\n===Shape========");
+const shape: Shape = new Rectangle(4,5);
+
+
+let width = shape.width;
+
+console.log(width);
+
 
