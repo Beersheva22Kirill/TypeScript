@@ -1,3 +1,5 @@
 {
-    "interval": 6000
+    "interval": 6000,
+    "min": 100,
+    "max":999
 }

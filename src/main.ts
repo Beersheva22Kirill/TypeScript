@@ -10,7 +10,5 @@ setInterval(() => {
 },keyConfig.interval + 1000)
 
 
-setInterval(() => {
-    shiftCipher.updateKey()
-},keyConfig.interval)
+
 

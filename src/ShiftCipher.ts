@@ -1,5 +1,5 @@
 import CipherDecipher from "./CipherDecipher";
-const RANGE = {min:1, max:126};
+import keyConfig from "./config/key-config.json";
 
 export default class ShiftCipher implements CipherDecipher {
     
@@ -8,14 +8,17 @@ export default class ShiftCipher implements CipherDecipher {
 
     constructor(){
         this._baseKey = new Map();
-        this._key = Math.trunc(RANGE.min + Math.random() * (RANGE.max - RANGE.min))
+        this.updateKey()
+        setInterval(() => {
+            this.updateKey()
+        },keyConfig.interval)
     }
 
     cipher(text: string): CipherType { 
         let res = ""
         Array.from(text).forEach(e => {
             let index:number = e.charCodeAt(0) + this._key;
-            if (index > "~".charCodeAt(0)) {
+            while (index > "~".charCodeAt(0)) {
                 index = index - ("~".charCodeAt(0) - " ".charCodeAt(0)) - 1;
             }
             res += String.fromCharCode(index)
@@ -33,7 +36,7 @@ export default class ShiftCipher implements CipherDecipher {
         
         Array.from(cipher.ciperText).forEach(e => {
             let index = e.charCodeAt(0) - keyForDecipher;
-            if (index < " ".charCodeAt(0)) {
+            while (index < " ".charCodeAt(0)) {
                 index += ("~".charCodeAt(0) - " ".charCodeAt(0)) + 1;    
             }
             res += String.fromCharCode(index)
@@ -43,7 +46,7 @@ export default class ShiftCipher implements CipherDecipher {
     }
 
     updateKey(): void {
-        this._key = this._key = Math.trunc(RANGE.min + Math.random() * (RANGE.max - RANGE.min))
+        this._key = this._key = Math.trunc(keyConfig.min + Math.random() * (keyConfig.max - keyConfig.min))
     }
     
 }

@@ -11,7 +11,4 @@ setInterval(function () {
     console.log("str ciper: " + cipherObject.ciperText, "key: " + cipherObject.key);
     console.log("\ndecipher string: " + shiftCipher.decipher(cipherObject));
 }, key_config_json_1.default.interval + 1000);
-setInterval(function () {
-    shiftCipher.updateKey();
-}, key_config_json_1.default.interval);
 //# sourceMappingURL=main.js.map
